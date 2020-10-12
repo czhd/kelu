@@ -1,29 +1,27 @@
 package pro.kelu.missyou.api.v1;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import pro.kelu.missyou.dto.PersonDTO;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.validation.constraints.Max;
 
 //@Controller
 @RestController
-@RequestMapping("/v1/banner")
+@RequestMapping("/banner")
+@Validated
 public class BannerController {
 
-//    @GetMapping("/test")
-//    public void test(HttpServletResponse response) throws IOException {
-//        response.getWriter().write("Hello，冰!");
-////        return "Hello, Choi!";
-//    }
 
-    @GetMapping("test")
-//    @ResponseBody
-    public String test() {
-        return "Hello, 冰!";
+    @PostMapping("/test/{id}")
+    public PersonDTO test(@PathVariable @Max(value = 10, message = "只能1~10范围内噢") int id,
+                       @RequestParam @Length(min=10) String name,
+                       @RequestBody @Validated PersonDTO person) {
+        PersonDTO dto = new PersonDTO();
+        return dto;
+
+//        throw new NotFoundException(10001);
     }
 }
