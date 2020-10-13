@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: dev
+
+# 路由包路径
+missyou:
+  api-package: pro.kelu.missyou.api

@@ -1,12 +1,9 @@
 package pro.kelu.missyou.api.v1;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pro.kelu.missyou.dto.PersonDTO;
-
-import javax.validation.constraints.Max;
+import pro.kelu.missyou.service.BannerService;
 
 //@Controller
 @RestController
@@ -14,14 +11,11 @@ import javax.validation.constraints.Max;
 @Validated
 public class BannerController {
 
+    @Autowired
+    private BannerService bannerService;
 
-    @PostMapping("/test/{id}")
-    public PersonDTO test(@PathVariable @Max(value = 10, message = "只能1~10范围内噢") int id,
-                       @RequestParam @Length(min=10) String name,
-                       @RequestBody @Validated PersonDTO person) {
-        PersonDTO dto = new PersonDTO();
-        return dto;
+    @GetMapping("/name/{name}")
+    public void name(@PathVariable String name) {
 
-//        throw new NotFoundException(10001);
     }
 }
