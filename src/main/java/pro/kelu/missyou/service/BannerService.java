@@ -1,7 +1,7 @@
 package pro.kelu.missyou.service;
 
-import pro.kelu.missyou.model.BannerModel;
+import pro.kelu.missyou.model.Banner;
 
 public interface BannerService {
-    BannerModel getByName(String name);
+    Banner getByName(String name);
 }

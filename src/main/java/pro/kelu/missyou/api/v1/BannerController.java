@@ -2,8 +2,12 @@ package pro.kelu.missyou.api.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import pro.kelu.missyou.model.BannerModel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import pro.kelu.missyou.exception.http.NotFoundException;
+import pro.kelu.missyou.model.Banner;
 import pro.kelu.missyou.service.BannerService;
 
 import javax.validation.constraints.NotBlank;
@@ -18,8 +22,11 @@ public class BannerController {
     private BannerService bannerService;
 
     @GetMapping("/name/{name}")
-    public BannerModel name(@PathVariable @NotBlank String name) {
-        BannerModel bannerModel = bannerService.getByName(name);
-        return bannerModel;
+    public Banner name(@PathVariable @NotBlank String name) {
+        Banner banner = bannerService.getByName(name);
+        if (banner == null) {
+            throw new NotFoundException(30005);
+        }
+        return banner;
     }
 }

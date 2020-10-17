@@ -1,13 +1,12 @@
 package pro.kelu.missyou.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import pro.kelu.missyou.model.BannerModel;
+import pro.kelu.missyou.model.Banner;
 
 //@Repository
-public interface BannerRepository extends JpaRepository<BannerModel, Long> {
+public interface BannerRepository extends JpaRepository<Banner, Long> {
 
-    BannerModel findOneById(Long id);
+    Banner findOneById(Long id);
 
-    BannerModel findOneByName(String name);
+    Banner findOneByName(String name);
 }
