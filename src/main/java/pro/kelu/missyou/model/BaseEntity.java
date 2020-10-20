@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @Getter
 @MappedSuperclass
-//@Where("delete_time is null and online = 1")
+@Where(clause = "delete_time is null and online = 1")
 public abstract class BaseEntity {
     @JsonIgnore
     private Date createTime;

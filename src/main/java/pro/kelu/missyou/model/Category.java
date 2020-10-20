@@ -22,7 +22,7 @@ public class Category extends BaseEntity{
     private Long parentId;
     private String img;
     private Long index;
-    private short online;
+    private Boolean online;
     private Long level;
 
 
