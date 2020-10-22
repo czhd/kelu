@@ -12,7 +12,6 @@ public class PasswordValidator implements ConstraintValidator<PasswordEqual, Per
     public boolean isValid(PersonDTO personDTO, ConstraintValidatorContext constraintValidatorContext) {
         String password1 = personDTO.getPassword1();
         String password2 = personDTO.getPassword2();
-        boolean match = password1.equals(password2);
-        return match;
+        return password1.equals(password2);
     }
 }
