@@ -19,3 +19,4 @@ wx:
   appid: wxbe01d607d47d091e
   appsecret: b4242ed6211fd7f77d1d41d2a7af3093
   code2session: https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type=authorization_code
+
