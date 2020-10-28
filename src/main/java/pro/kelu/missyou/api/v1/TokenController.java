@@ -3,8 +3,10 @@ package pro.kelu.missyou.api.v1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pro.kelu.missyou.dto.TokenDTO;
 import pro.kelu.missyou.dto.TokenGetDTO;
 import pro.kelu.missyou.service.WxAuthenticationService;
+import pro.kelu.missyou.util.JwtToken;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,15 +26,23 @@ public class TokenController {
             case USER_WECHAT:
                 String it = "sss";
 
-                wxAuthenticationService.codeToToken(tokenGetDTO.getAccount());
+                token = wxAuthenticationService.codeToToken(tokenGetDTO.getAccount());
                 break;
             case USER_EMAIL:
-
+                token = "";
                 break;
             default:
                 break;
         }
-        
-        return null;
+        map.put("token", token);
+        return map;
+    }
+
+    @PostMapping("/verify")
+    public Map<String, Boolean> verify(@RequestBody TokenDTO token) {
+        Map<String, Boolean> map = new HashMap<>();
+        Boolean valid = JwtToken.verifyToken(token.getToken());
+        map.put("is_valid", valid);
+        return map;
     }
 }

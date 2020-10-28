@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pro.kelu.missyou.core.interceptors.ScopeLevel;
 import pro.kelu.missyou.exception.http.NotFoundException;
 import pro.kelu.missyou.model.Banner;
 import pro.kelu.missyou.service.BannerService;
@@ -22,6 +23,7 @@ public class BannerController {
     private BannerService bannerService;
 
     @GetMapping("/name/{name}")
+    @ScopeLevel
     public Banner name(@PathVariable @NotBlank String name) {
         Banner banner = bannerService.getByName(name);
         if (banner == null) {

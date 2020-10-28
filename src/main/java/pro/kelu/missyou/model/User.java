@@ -2,12 +2,11 @@ package pro.kelu.missyou.model;
 
 import lombok.*;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
@@ -15,16 +14,17 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseEntity {
     @Id
-    private int id;
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
     private String openid;
     private String nickname;
-    private Integer unifyUid;
+    private Long unifyUid;
     private String email;
     private String password;
     private String mobile;
-    private Object wxProfile;
+//    private String wxProfile;
 
 
 }

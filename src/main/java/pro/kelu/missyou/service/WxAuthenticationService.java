@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pro.kelu.missyou.exception.http.ParameterException;
 import pro.kelu.missyou.model.User;
 import pro.kelu.missyou.repository.UserRepository;
 import pro.kelu.missyou.util.GenericAndJson;
+import pro.kelu.missyou.util.JwtToken;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class WxAuthenticationService {
@@ -22,6 +25,7 @@ public class WxAuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Value("${wx.appid}")
     private String appid;
@@ -42,20 +46,25 @@ public class WxAuthenticationService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        this.registerUser(map);
-        return "";
+        return this.registerUser(map);
     }
 
     public String registerUser(Map<String, Object> session) {
         String openid = (String) session.get("openid");
-        User user = userRepository.findByOpenid(openid);
-        if (user == null) {
-            // TODO: JWT
-            return "";
+        if (openid == null) {
+            throw new ParameterException(20004);
         }
-        user = User.builder().openid(openid).build();
+        User user = userRepository.findByOpenid(openid);
+        if (user != null) {
+            // TODO: JWT
+            return JwtToken.makeToken(user.getId());
+        }
+        user = User.builder()
+                .openid(openid)
+                .build();
         userRepository.save(user);
         // TODO: JWT
-        return "";
+        Long uid = user.getId();
+        return JwtToken.makeToken(uid);
     }
 }
