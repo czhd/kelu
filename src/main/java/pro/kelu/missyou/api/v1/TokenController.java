@@ -24,8 +24,6 @@ public class TokenController {
         String token = null;
         switch (tokenGetDTO.getLoginType()) {
             case USER_WECHAT:
-                String it = "sss";
-
                 token = wxAuthenticationService.codeToToken(tokenGetDTO.getAccount());
                 break;
             case USER_EMAIL:
